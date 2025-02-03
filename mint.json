@@ -1,24 +1,28 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "BSPK Developers Portal",
   "logo": {
-    "dark": "/logo/dark.svg",
+    "dark": "/logo/dark.png",
     "light": "/logo/light.svg"
   },
   "favicon": "/favicon.png",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#171717",
+    "light": "#d4a27f", 
+    "dark": "#171717",
+    "background": {
+      "light": "#fdfdf8",
+      "dark": "#09090b"
+    },
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#09090b",
+      "to": "#09090b"
     }
   },
   "topbarLinks": [
     {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "name": "Get Support",
+      "url": "mailto:support@bspk.com"
     }
   ],
   "topbarCtaButton": {
@@ -33,53 +37,176 @@
   ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "name": "Get Support",
+      "icon": "envelope",
+      "url": "mailto:support@bspk.com"
     }
   ],
   "navigation": [
     {
       "group": "Get Started",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "welcome",
+        "cloud-enabled-saas-platform",
+        "data-security-and-privacy",
+        "systems-architecture",
+        "integration-with-bspk"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Core Data Integration Guide",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "core-data-integration/introduction",
+        "core-data-integration/importing-data",
+        "core-data-integration/pre-reqs-to-import",
+        {
+          "group": "Import Files Specs",
+          "pages": [
+            "core-data-integration/sample-files",
+            "core-data-integration/file-types/store-regions",
+            "core-data-integration/file-types/stores",
+            "core-data-integration/file-types/sales-associates",
+            "core-data-integration/file-types/shoppers",
+            "core-data-integration/file-types/products",
+            "core-data-integration/file-types/product-variants",
+            "core-data-integration/file-types/product-prices",
+            "core-data-integration/file-types/product-inventories",
+            "core-data-integration/file-types/product-images",
+            "core-data-integration/file-types/sales"
+          ]
+        },
+        "core-data-integration/supported-currencies",
+        "core-data-integration/supported-languages",
+        "core-data-integration/supported-countries"
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "Special Orders Integration Guide",
       "pages": [
-        "api-reference/introduction"
+        "special-orders-integration/introduction",
+        {
+          "group": "Import Files Specs",
+          "pages": [
+            "special-orders-integration/sample-files",
+            "special-orders-integration/file-types/special-orders",
+            "special-orders-integration/file-types/special-order-line-items",
+            "special-orders-integration/file-types/special-order-events"
+          ]
+        }
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "S3 Bucket Configuration",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "s3-bucket-configuration"
+      ]
+    },
+    {
+      "group": "Using the API",
+      "pages": [
+        "api-reference/getting-started",
+        "api-reference/schema-and-versioning",
+        "api-reference/authentication",
+        "api-reference/requests-and-responses",
+        "api-reference/pagination",
+        "api-reference/rate-limiting",
+        "api-reference/support"
+      ]
+    },
+    {
+      "group": "Platform API",
+      "pages": [
+        "api-reference/platform-api/introduction",
+        {
+          "group": "Clients",
+          "pages": [
+            "api-reference/platform-api/endpoints/clients/creates-or-updates-a-client-shopper-in-bspk",
+            "api-reference/platform-api/endpoints/clients/merges-a-client-to-another-client",
+            "api-reference/platform-api/endpoints/clients/links-a-bspk-client-with-a-client-in-an-external-backend-system",
+            "api-reference/platform-api/endpoints/clients/removes-the-link-from-a-bspk-client-with-a-client-in-an-external-backend-system"
+          ]
+        },
+        {
+          "group": "Sales",
+          "pages": [
+            "api-reference/platform-api/endpoints/sales/creates-or-updates-a-sale-in-bspk"
+          ]
+        },
+        {
+          "group": "Webhooks",
+          "pages": [
+            "api-reference/platform-api/endpoints/webhooks/creates-a-webhook-endpoint",
+            "api-reference/platform-api/endpoints/webhooks/delete-a-webhook-endpoint",
+            "api-reference/platform-api/endpoints/webhooks/updates-a-webhook-endpoint",
+            "api-reference/platform-api/endpoints/webhooks/list-webhook-endpoints"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Extraction API",
+      "pages": [
+        "api-reference/extraction-api/introduction",
+        {
+          "group": "Appointments",
+          "pages": [
+            "api-reference/extraction-api/endpoints/appointments/list-appointments"
+          ]
+        },
+        {
+          "group": "Calls",
+          "pages": [
+            "api-reference/extraction-api/endpoints/calls/list-calls"
+          ]
+        },
+        {
+          "group": "Clients",
+          "pages": [
+            "api-reference/extraction-api/endpoints/clients/list-clients"
+          ]
+        },
+        {
+          "group": "Emails",
+          "pages": [
+            "api-reference/extraction-api/endpoints/emails/list-emails"
+          ]
+        },
+        {
+          "group": "Ideabook",
+          "pages": [
+            "api-reference/extraction-api/endpoints/ideabook/get-clients-ideabook-actions-likes-dislikes-wishlists"
+          ]
+        },
+        {
+          "group": "Messages",
+          "pages": [
+            "api-reference/extraction-api/endpoints/messages/list-messages"
+          ]
+        },
+        {
+          "group": "Notes",
+          "pages": [
+            "api-reference/extraction-api/endpoints/notes/list-notes"
+          ]
+        },
+        {
+          "group": "Reminders",
+          "pages": [
+            "api-reference/extraction-api/endpoints/reminders/list-reminders"
+          ]
+        },
+        {
+          "group": "Sales Associates",
+          "pages": [
+            "api-reference/extraction-api/endpoints/sales-associates/list-sales-associates"
+          ]
+        },
+        {
+          "group": "Slices",
+          "pages": [
+            "api-reference/extraction-api/endpoints/slices/list-slices"
+          ]
+        }
       ]
     }
   ],
