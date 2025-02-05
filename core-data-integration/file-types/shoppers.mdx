@@ -1,23 +1,28 @@
 ---
-title: Shoppers
+title: "Shoppers"
 ---
 
 <table>
   <tbody>
     <tr>
       <td>File Prefix</td>
+
       <td>
         <code>SHOPPER</code>
       </td>
     </tr>
+
     <tr>
       <td>Current Version</td>
+
       <td>
         <code>V3</code>
       </td>
     </tr>
+
     <tr>
       <td>Previous Version</td>
+
       <td>
         <code>V2 [Link to V2 Documentation page](/core-data-integration/file-types/shoppers_v2)</code>
       </td>
@@ -35,46 +40,52 @@ title: Shoppers
       <td><strong>Description</strong></td>
       <td><strong>Example</strong></td>
     </tr>
+
     <tr>
-      <td><strong>shopper_ref</strong></td>
+      <td><strong>shopper\_ref</strong></td>
       <td>Alphanumeric</td>
       <td>1-255</td>
       <td>Yes</td>
       <td>Unique shopper reference descriptor</td>
       <td>103495</td>
     </tr>
+
     <tr>
-      <td><strong>first_name</strong></td>
+      <td><strong>first\_name</strong></td>
       <td>Alphanumeric</td>
       <td>1-255</td>
       <td>No</td>
       <td>Shopper first name</td>
       <td>Marie</td>
     </tr>
+
     <tr>
-      <td><strong>last_name</strong></td>
+      <td><strong>last\_name</strong></td>
       <td>Alphanumeric</td>
       <td>1-255</td>
       <td>No</td>
       <td>Shopper last name</td>
       <td>Curie</td>
     </tr>
+
     <tr>
-      <td><strong>alternate_first_name</strong></td>
+      <td><strong>alternate\_first\_name</strong></td>
       <td>Alphanumeric</td>
       <td>1-255</td>
       <td>No</td>
       <td>Shopper other first name</td>
       <td>Maria Salomea</td>
     </tr>
+
     <tr>
-      <td><strong>alternate_last_name</strong></td>
+      <td><strong>alternate\_last\_name</strong></td>
       <td>Alphanumeric</td>
       <td>1-255</td>
       <td>No</td>
       <td>Shopper other last name</td>
       <td>Sklodowska</td>
     </tr>
+
     <tr>
       <td><strong>gender</strong></td>
       <td>Alphanumeric</td>
@@ -83,14 +94,16 @@ title: Shoppers
       <td>Gender of the client, being: M = Male or F = Female or NB = Non-binary</td>
       <td>F</td>
     </tr>
+
     <tr>
       <td><strong>email</strong></td>
       <td>Alphanumeric</td>
       <td>1-255</td>
       <td>No</td>
       <td>Shopper email</td>
-      <td>marie_curie@email.com</td>
+      <td>marie\_curie@email.com</td>
     </tr>
+
     <tr>
       <td><strong>title</strong></td>
       <td>Alphanumeric</td>
@@ -99,22 +112,25 @@ title: Shoppers
       <td>Shopper title</td>
       <td>Mr.</td>
     </tr>
+
     <tr>
-      <td><strong>mobile_phone</strong></td>
+      <td><strong>mobile\_phone</strong></td>
       <td>E.164</td>
       <td>1-255</td>
       <td>No</td>
       <td>Shopper mobile phone. Must be unique per shopper</td>
       <td>+14155551212</td>
     </tr>
+
     <tr>
-      <td><strong>other_phone</strong></td>
+      <td><strong>other\_phone</strong></td>
       <td>E.164</td>
       <td>1-255</td>
       <td>No</td>
       <td>Shopper other phone</td>
       <td>+14155551213</td>
     </tr>
+
     <tr>
       <td><strong>address</strong></td>
       <td>Alphanumeric</td>
@@ -123,30 +139,34 @@ title: Shoppers
       <td>Shopper address</td>
       <td>2nd Street</td>
     </tr>
+
     <tr>
-      <td><strong>address_2</strong></td>
+      <td><strong>address\_2</strong></td>
       <td>Alphanumeric</td>
       <td>1-255</td>
       <td>No</td>
       <td>Shopper address follow up</td>
       <td>Appartment 3</td>
     </tr>
+
     <tr>
-      <td><strong>address_3</strong></td>
+      <td><strong>address\_3</strong></td>
       <td>Alphanumeric</td>
       <td>1-255</td>
       <td>No</td>
       <td>Shopper address follow up</td>
       <td>Lotissement Vert</td>
     </tr>
+
     <tr>
-      <td><strong>address_4</strong></td>
+      <td><strong>address\_4</strong></td>
       <td>Alphanumeric</td>
       <td>1-255</td>
       <td>No</td>
       <td>Shopper address follow up</td>
       <td>PO Box #123</td>
     </tr>
+
     <tr>
       <td><strong>city</strong></td>
       <td>Alphanumeric</td>
@@ -155,6 +175,7 @@ title: Shoppers
       <td>Shopper address city</td>
       <td>Paris</td>
     </tr>
+
     <tr>
       <td><strong>state</strong></td>
       <td>Alphanumeric</td>
@@ -163,22 +184,25 @@ title: Shoppers
       <td>Shopper address state</td>
       <td>Ile-de-France</td>
     </tr>
+
     <tr>
-      <td><strong>zip_code</strong></td>
+      <td><strong>zip\_code</strong></td>
       <td>Alphanumeric</td>
       <td>1-255</td>
       <td>No</td>
       <td>Shopper address zip code</td>
       <td>75002</td>
     </tr>
+
     <tr>
-      <td><strong>country_code</strong></td>
+      <td><strong>country\_code</strong></td>
       <td>ISO 3166 Must belong to our [supported countries](/core-data-integration/supported-countries)</td>
       <td>2</td>
       <td>No</td>
       <td>Shopper address country code</td>
       <td>FR</td>
     </tr>
+
     <tr>
       <td><strong>preferences</strong></td>
       <td>Alphanumeric ; separated list</td>
@@ -187,14 +211,16 @@ title: Shoppers
       <td>Shopper preferred product categories. Must belong to the company "shopper preferences", as explained below</td>
       <td>Young Professional; Lawyer</td>
     </tr>
+
     <tr>
-      <td><strong>preferred_contact_channel</strong></td>
+      <td><strong>preferred\_contact\_channel</strong></td>
       <td>Alphanumeric</td>
       <td>1-255</td>
       <td>No</td>
       <td>Valid entries are chat, email, line, whatsapp, wechat, call</td>
       <td>whatsapp</td>
     </tr>
+
     <tr>
       <td><strong>nationality</strong></td>
       <td>ISO 3166 Must belong to our [supported countries](/core-data-integration/supported-countries)</td>
@@ -203,6 +229,7 @@ title: Shoppers
       <td>Shopper nationality</td>
       <td>GB</td>
     </tr>
+
     <tr>
       <td><strong>languages</strong></td>
       <td>ISO 639-1 Must belong to our [supported languages](/core-data-integration/supported-languages). Can be one language or a `;` separated list of languages</td>
@@ -211,62 +238,89 @@ title: Shoppers
       <td>Language(s) spoken by shopper</td>
       <td>fr</td>
     </tr>
+
     <tr>
-      <td><strong>email_contact</strong></td>
-      <td>Boolean [TRUE|FALSE]</td>
-      <td></td>
+      <td><strong>email\_contact</strong></td>
+      <td>Boolean \[TRUE|FALSE]</td>
+
+      <td />
+
       <td>No</td>
       <td>Define if shopper gave their agreement to be contacted by email</td>
       <td>TRUE</td>
     </tr>
+
     <tr>
-      <td><strong>phone_call_contact</strong></td>
-      <td>Boolean [TRUE|FALSE]</td>
-      <td></td>
+      <td><strong>phone\_call\_contact</strong></td>
+      <td>Boolean \[TRUE|FALSE]</td>
+
+      <td />
+
       <td>No</td>
       <td>Define if shopper gave their agreement to be contacted by phone call</td>
       <td>FALSE</td>
     </tr>
+
     <tr>
-      <td><strong>chat_contact</strong></td>
-      <td>Boolean [TRUE|FALSE]</td>
-      <td></td>
+      <td><strong>chat\_contact</strong></td>
+      <td>Boolean \[TRUE|FALSE]</td>
+
+      <td />
+
       <td>No</td>
       <td>Define if shopper gave their agreement to be contacted by chat</td>
       <td>TRUE</td>
     </tr>
+
     <tr>
-      <td><strong>interested_in_new_products</strong></td>
-      <td>Boolean [TRUE|FALSE]</td>
-      <td></td>
+      <td><strong>do\_not\_contact</strong></td>
+      <td>Boolean \[TRUE|FALSE]</td>
+
+      <td />
+
+      <td>No</td>
+      <td>Define if shopper should not be contacted in anyhow. Once set it will take precedence over the `email_contact`, `phone_call` and `chat_contact`.</td>
+      <td>FALSE</td>
+    </tr>
+
+    <tr>
+      <td><strong>interested\_in\_new\_products</strong></td>
+      <td>Boolean \[TRUE|FALSE]</td>
+
+      <td />
+
       <td>No</td>
       <td>Define if shopper is interested in receiving messages about new products</td>
       <td>TRUE</td>
     </tr>
+
     <tr>
-      <td><strong>creation_date</strong></td>
+      <td><strong>creation\_date</strong></td>
       <td>Date ISO 8601</td>
       <td>10</td>
       <td>No</td>
       <td>Date when the shopper record was created</td>
       <td>2022-01-17</td>
     </tr>
+
     <tr>
-      <td><strong>store_ref</strong></td>
+      <td><strong>store\_ref</strong></td>
       <td>Alphanumeric</td>
       <td>1-255</td>
       <td>No</td>
       <td>Shopper record was created at this store</td>
       <td>STORE-1</td>
     </tr>
+
     <tr>
-      <td><strong>sales_associate_ref</strong></td>
+      <td><strong>sales\_associate\_ref</strong></td>
       <td>Alphanumeric</td>
       <td>1-255</td>
       <td>No</td>
       <td>Shopper's current associate</td>
-      <td>SALES_ASSOCIATE-1</td>
+      <td>SALES\_ASSOCIATE-1</td>
     </tr>
+
     <tr>
       <td><strong>segment</strong></td>
       <td>Alphanumeric</td>
@@ -275,6 +329,7 @@ title: Shoppers
       <td>Shopper's segment</td>
       <td>VIP</td>
     </tr>
+
     <tr>
       <td><strong>birthday</strong></td>
       <td>Date ISO 8601 (full or partial)</td>
@@ -283,8 +338,9 @@ title: Shoppers
       <td>Shopper's birthday full date (YYYY-MM-DD) or partial (MM-DD)</td>
       <td>1980-07-23</td>
     </tr>
+
     <tr>
-      <td><strong>passport_number</strong></td>
+      <td><strong>passport\_number</strong></td>
       <td>Alphanumeric</td>
       <td>1-255</td>
       <td>No</td>
@@ -297,29 +353,36 @@ title: Shoppers
 ### Mobile Phone
 
 Mobile phone will be cleaned and converted to E.164 format. Then we will check if it is a valid mobile phone, and apply the following:
-- If it is a valid mobile phone, it is mapped to shopper `mobile_phone` attribute
-- If it is not valid and if shopper `other_phone` is empty, it is mapped to shopper `other_phone` attribute
-- If it is not valid and shopper `other_phone` is not empty, an error will be raised and shopper won't be imported
+
+* If it is a valid mobile phone, it is mapped to shopper `mobile_phone` attribute
+
+* If it is not valid and if shopper `other_phone` is empty, it is mapped to shopper `other_phone` attribute
+
+* If it is not valid and shopper `other_phone` is not empty, an error will be raised and shopper won't be imported
 
 ### Segment
 
 Segment allows sales associates to assign a client to a CRM segment or to change the current segment of the client. Segment values are specified by the brand. They are imported into BSPK from the brand CRM. A single value can be selected at a time per client.
 
-### Migrating from SHOPPER_V2 to SHOPPER_V3?
+### Migrating from SHOPPER\_V2 to SHOPPER\_V3?
 
 <Warning>
-In the SHOPPER_V3, as mentioned earlier, the `segment` column has been repurposed.
-Therefore, the column previously known as `segment` in SHOPPER_V2 is now referred to as `preferences` in SHOPPER_V3, and it should be remapped accordingly.
+  In the SHOPPER\_V3, as mentioned earlier, the `segment` column has been repurposed.
+  Therefore, the column previously known as `segment` in SHOPPER\_V2 is now referred to as `preferences` in SHOPPER\_V3, and it should be remapped accordingly.
 </Warning>
+
 ### Preferences
 
 The `preferences` column is used to populate shopper's preferred product categories. If a value corresponds to one of company shopper preferences value, it will be added to shopper preferred product categories. For example if company has the following shopper preferences:
 
-- color: Green, Orange
-- styles: Modern, Vintage
+* color: Green, Orange
+
+* styles: Modern, Vintage
 
 Then a shopper can be imported with the following preferences: `Green;Orange;Black;Vintage`. And shopper preferred product categories will be:
-- color: Green, Orange
-- styles: Vintage
+
+* color: Green, Orange
+
+* styles: Vintage
 
 (`Black` is ignored because it can't be mapped to any company shopper preferences)
