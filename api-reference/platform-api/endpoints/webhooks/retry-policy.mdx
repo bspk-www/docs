@@ -1,0 +1,9 @@
+---
+title: Webhooks Retry Policy
+---
+
+BSPK webhooks have built-in retry methods for `3xx`, `4xx` (except `422`), or `5xx` response status codes. If BSPK doesn’t quickly receive a `2xx` response status code for an event, we mark the event as failed and stop trying to send it to your endpoint. After multiple days, we email you about the misconfigured endpoint, and automatically disable it soon after if you haven’t addressed it.
+
+The webhook endpoint under ideal circumstances should send a response to the webhook provider. BSPK treats `2xx` responses as successful notifications. Any response to a BSPK webhook with any other status code than `2xx` is considered to be a failure. Responses with `422 Unprocessable entity` status are a bit special, indeed BSPK do treats it as failure but won't trigger retry mechanism for it. For all other failed webhook notifications, BSPK has a retry mechanism in place. If there is no response after waiting for **five seconds**, BSPK retries the connection 19 times over the next 96 hours. At the end of the retries, if there is still no response then BSPK will delete the event and not try to deliver it anymore.
+
+The retry mechanism is a very important feature as it helps to keep track of webhook notifications and deal with possible missed notifications. In this section, we explored the basics of BSPK webhooks and the components of a BSPK webhook notification.

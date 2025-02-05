@@ -121,20 +121,17 @@
           "group": "Clients",
           "pages": [
             "api-reference/platform-api/endpoints/clients/creates-or-updates-a-client-shopper-in-bspk",
-            "api-reference/platform-api/endpoints/clients/merges-a-client-to-another-client",
             "api-reference/platform-api/endpoints/clients/links-a-bspk-client-with-a-client-in-an-external-backend-system",
             "api-reference/platform-api/endpoints/clients/removes-the-link-from-a-bspk-client-with-a-client-in-an-external-backend-system"
           ]
         },
         {
-          "group": "Sales",
-          "pages": [
-            "api-reference/platform-api/endpoints/sales/creates-or-updates-a-sale-in-bspk"
-          ]
-        },
-        {
           "group": "Webhooks",
           "pages": [
+            "api-reference/platform-api/endpoints/webhooks/introduction",
+            "api-reference/platform-api/endpoints/webhooks/events-and-payloads",
+            "api-reference/platform-api/endpoints/webhooks/security",
+            "api-reference/platform-api/endpoints/webhooks/retry-policy",
             "api-reference/platform-api/endpoints/webhooks/creates-a-webhook-endpoint",
             "api-reference/platform-api/endpoints/webhooks/delete-a-webhook-endpoint",
             "api-reference/platform-api/endpoints/webhooks/updates-a-webhook-endpoint",
@@ -211,8 +208,7 @@
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://linkedin.com/company/mintlify"
+    "github": "https://github.com/bspk-www",
+    "linkedin": "https://www.linkedin.com/company/bspkluxury"
   }
 }

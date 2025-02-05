@@ -1,0 +1,20 @@
+---
+title: Introduction
+---
+
+You can configure webhook endpoints via the API to be notified about events that happen in your BSPK Company.
+
+A webhook enables BSPK to push real-time notifications to your app whenever an event happens in your account. Webhooks are particularly useful for asynchronous events like when a Sales Associate creates or updates a client. BSPK uses HTTPS to send these notifications to your app as a JSON payload. You can then use these notifications to execute actions in your backend systems.
+
+Most users configure webhooks to sync their external systems’ data, like ERPs, to whenever some information changes at BSPK level.
+
+### Steps to receive webhooks
+You can start receiving event notifications in your app using the steps in this section:
+
+1. Identify the events you want to monitor and the event payloads to parse.
+2. Create a webhook endpoint as an HTTP endpoint (URL) on your local server (making sure it is publicly accessible).
+3. Register your publicly accessible endpoint URL in the BSPK webook endpoint’s api.
+4. Handle requests from BSPK by parsing each event object and returning 2xx response status codes.
+5. Test that your webhook endpoint is working properly.
+6. Deploy your webhook endpoint to production.
+7. Replace your local server webhook endpoint with your Production endpoint.

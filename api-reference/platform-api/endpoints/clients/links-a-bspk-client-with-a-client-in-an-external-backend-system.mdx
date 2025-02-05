@@ -1,3 +1,21 @@
 ---
 openapi: post /api/platform/v1/clients/{id}/external_link
 ---
+
+BSPK manages various resources that you may want to sync with your backend. Currently, we support linking Clients. Once a Client is linked, you can receive updates through our Webhook API, allowing you to identify and match BSPK Clients with those in your system using the external_id attribute.
+
+Checking External Link Support
+
+To link an entity from your backend to BSPK, check if the entity supports the external_link endpoint.
+
+Supported Entities
+
+Currently, the following entities can be externally linked:
+
+## Entities
+
+Currently, we support the following entities to be externally linked:
+
+| Entity  |
+|:--------|
+| Client  |

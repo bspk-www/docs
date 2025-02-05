@@ -1,0 +1,178 @@
+---
+title: Events and Payloads
+---
+
+## Events
+Currently, we support the following Events:
+
+| Entity           | Events |
+|:--------------|:---------|
+| Client | `client.created`, `client.updated`, `client.deleted` |
+| File import | `file_import.finished` |
+
+
+## Payloads
+
+Every event payload has a base structure as follows:
+
+```json
+{
+  "event_name": "name_of.event",
+  "object": {
+    "field1": "object specific field",
+    "field2": "object specific field"
+  }
+}
+```
+**event_name**: Name of the event that triggered the webhook event.
+
+**object**: Object filled with data specific to each entity.
+<br/><br/>
+
+### Client payload
+
+| Field           | Description |
+|:--------------|:---------|
+| id | BSPK's unique identifier of the client |
+| external_id | Client's Unique identifier (linked by your backend or ERP system) |
+| first_name | First name of the client |
+| last_name | Last name of the client |
+| alternate_first_name | Alternate first name of the client |
+| alternate_last_name | Alternate last name of the client |
+| title | Title of the client |
+| email | Email of the client |
+| mobile_phone | Mobile phone of the client |
+| other_phone | Other phone of the client |
+| birthday | Birthday of the client |
+| gender | Gender of the client (accepted values: NULL, "F" (Female), "M" (Male), "NB" ("Non-binary")) |
+| nationality | Nationality of the client |
+| passport_number | Passport Number of the client |
+| language | Language of the client |
+| addresses | List of client's addresses |
+| current_store | Attributes related to the client's current assigned store |
+| current_sales_associate | Attributes related to the client's current assigned sales associate |
+| preferred_contact_channel | The preferred channel of the client |
+| communication_preferences | Whether or not the client has enabled being contacted by a given channel |
+| consent | Whether or not the client has given consent |
+| notify_of_new_collection | Whether or not the client wants to be notified of new collections |
+| preferences | The preferences assigned to the client |
+| preferred_journey | The Journey which the client is assigned to |
+| interests | Interests of that client, i.e. Surf, Golfing |
+| segment | The Segmentention which the client is assigned to |
+| referred_by_client_id | Unique identifier of the client that referred this client |
+| referred_at | The date when the client referral was recorded in BSPK |
+| last_contacted_at | The last date the client was contacted by a Sales Associate |
+| created_at | Timestamp of when the client was created |
+| updated_at | Timestamp of when the client was updated |
+
+
+#### Sample Client payload:
+
+```json
+{
+  "event_name": "client.updated",
+  "object": {
+    "id": 123,
+    "external_id": "C-720",
+    "first_name": "Mark",
+    "last_name": "Desmound",
+    "alternate_first_name": "标记",
+    "alternate_last_name": "德斯蒙德",
+    "title": "Mr.",
+    "current_store": {
+      "external_id": "STR-001"
+    },
+    "current_sales_associate": {
+      "external_id": "SA-123"
+    },
+    "email": "mark.d@email.com",
+    "mobile_phone": "+1 555 98765998",
+    "other_phone": "+1 555 4431009",
+    "birthday": "1980-01-23",
+    "gender": "M",
+    "nationality": "French",
+    "passport_number": "WT0010002098",
+    "language": "FR",
+    "addresses": [
+      {
+        "address": "661 N Park Ave",
+        "address_2": "Apartment #106",
+        "address_3": "",
+        "address_4": "",
+        "city": "Shawnee",
+        "state": "Oklahoma(OK)",
+        "zip": "74801",
+        "country_code": "USA"
+      }
+    ],
+    "preferred_contact_channel": "email",
+    "communication_preferences": {
+      "chat_opt_in": true,
+      "email_opt_in": true,
+      "phone_opt_in": true,
+      "whatsapp_opt_in": false,
+      "wechat_opt_in": false,
+      "line_opt_in": false,
+      "opt_out": false
+    },
+    "consent": true,
+    "notify_of_new_collection": true,
+    "preferences": [
+      { "name": "styles", "value": ["Business (Mon-Fri)"] },
+      { "name": "profession", "value": ["Real Estate"] }
+    ],
+    "interests": [ "Surf", "Golfing" ],
+    "preferred_journey": "special_order",
+    "segment": "VIP",
+    "referred_by_client_id": "CL-123",
+    "referred_at": "2021-07-20T09:00:00Z",
+    "last_contacted_at": "2021-07-23T09:00:00Z",
+    "created_at": "2021-01-10T15:00:00Z",
+    "updated_at": "2021-07-23T09:00:00Z"
+  }
+}
+```
+
+### File import payload
+
+| Field           | Description |
+|:--------------|:---------|
+| id | BSPK's unique identifier of file import |
+| status | Import's status: set to "error" when any errors are present or "completed" when there are no errors |
+| started_at | Timestamp of when the import started |
+| finished_at | Timestamp of when the import finished |
+| file_name | Name of imported file |
+| s3_bucket_name | Name of S3 bucket where imported file was dropped |
+| processed_rows_count | Number of successfully processed rows |
+| error_rows_count | Number of rows that failed to process successfully |
+| errors | An array of errors where each error is defined by its line number in import file and the error message |
+| warnings | An array of warnings where each warning is defined by its line number in import file and the warning message |
+
+#### Sample File import payload:
+
+```json
+{
+  "event_name": "file_import.finished",
+  "object": {
+    "id": 123,
+    "status": "error",
+    "started_at": "2022-03-02T13:55:29.000Z",
+    "finished_at": "2022-03-07T15:12:30.390Z",
+    "file_name": "PRODUCT_V2-20220101.csv",
+    "s3_bucket_name": "bspk-company-integration-prod",
+    "processed_rows_count": 200,
+    "error_rows_count": 2,
+    "errors": [
+      {
+        "line": 5,
+        "err_msg": ["Store not found for store_id: S_5"]
+      },
+      {
+        "line": 8,
+        "err_msg": ["Product Variant not found for product_ref: ID_1 and sku: SKU_4"]
+      }
+    ],
+    "warnings": []
+  }
+}
+```

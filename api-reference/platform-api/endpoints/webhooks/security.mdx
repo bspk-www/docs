@@ -1,0 +1,7 @@
+---
+title: Secure your webhooks
+---
+
+Use webhook secret to verify that BSPK generated a webhook request and that it didn’t come from a server acting like BSPK.
+
+Whenever you register a webhook endpoint at BSPK we return the `secret` field which we will send as an HTTP Header in every event we publish to that endpoint. To make sure the event was sent by BSPK server, once you get the request you must check that the value present into the header field `X-Bspk-Secret` contains the same value as returned to you in the `secret` field when you’ve registered the webhook endpoint.
