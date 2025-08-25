@@ -463,6 +463,11 @@
                         "description": "Define if client gave their aggreement to be contacted by chat",
                         "example": "false"
                       },
+                      "do_not_contact": {
+                        "type": "string",
+                        "description": "Define if client should not be contacted, regardless of the other contact preferences",
+                        "example": "false"
+                      },
                       "interested_in_new_products": {
                         "type": "string",
                         "description": "Define if client is interested in receiving messages about new products",
@@ -490,17 +495,150 @@
                       },
                       "preferences": {
                         "type": "string",
-                        "description": "Client's preferred product categories. Must belong to the company “shopper preferences”",
+                        "description": "Client's preferred product categories. Must belong to the company \"shopper preferences\"",
                         "example": "Young Professional; Lawyer"
                       },
                       "ignore_columns": {
                         "type": "string",
                         "description": "Attributes to be ignored during while saving the record (BSPK will not override values for the specified attributes).",
                         "example": "first_name;last_name"
+                      },
+                      "barcode": {
+                        "type": "string",
+                        "description": "Client's barcode",
+                        "example": "1234567890123"
+                      },
+                      "profile_type": {
+                        "type": "string",
+                        "description": "Client's profile type (default: person)",
+                        "enum": [
+                          "person",
+                          "organization"
+                        ],
+                        "example": "person"
                       }
                     }
                   }
                 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/platform/v1/products/inventories/batches": {
+      "post": {
+        "summary": "Creates or updates inventory quantities in batch",
+        "tags": [
+          "Products"
+        ],
+        "description": "Updates inventory quantities for multiple products in a single request.",
+        "operationId": "productInventoryBatchUpdate",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Partial success with warnings",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "Status of the batch update."
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "index": {
+                            "type": "integer",
+                            "description": "Index of the inventory record in the input array"
+                          },
+                          "status": {
+                            "type": "string",
+                            "description": "One of 'ok', 'error', or 'warning'"
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "Explanation message (for warnings or errors)"
+                          }
+                        },
+                        "required": [
+                          "index",
+                          "status"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "results"
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Empty inventory data"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "inventories": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "product_ref": {
+                          "type": "string",
+                          "description": "Internal product reference code",
+                          "example": "prd-123"
+                        },
+                        "sku": {
+                          "type": "string",
+                          "description": "SKU code",
+                          "example": "sku-123"
+                        },
+                        "quantity": {
+                          "type": "integer",
+                          "description": "Quantity to set",
+                          "example": 10
+                        },
+                        "store_ref": {
+                          "type": "string",
+                          "description": "Internal store reference code",
+                          "example": "str1"
+                        },
+                        "at": {
+                          "type": "string",
+                          "description": "ISO 8601 datetime when the inventory is effective",
+                          "example": "2021-01-01T00:00:00Z"
+                        }
+                      },
+                      "required": [
+                        "product_ref",
+                        "sku",
+                        "quantity",
+                        "store_ref",
+                        "at"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "inventories"
+                ]
               }
             }
           }
@@ -633,8 +771,8 @@
                       "client.deleted"
                     ],
                     "is_enabled": true,
-                    "created_at": "2024-08-07T12:29:11.915Z",
-                    "updated_at": "2024-08-07T12:29:11.915Z"
+                    "created_at": "2025-08-25T19:12:26.365Z",
+                    "updated_at": "2025-08-25T19:12:26.365Z"
                   },
                   {
                     "id": 1,
@@ -645,8 +783,8 @@
                       "client.deleted"
                     ],
                     "is_enabled": true,
-                    "created_at": "2024-08-07T12:29:11.910Z",
-                    "updated_at": "2024-08-07T12:29:11.910Z"
+                    "created_at": "2025-08-25T19:12:26.362Z",
+                    "updated_at": "2025-08-25T19:12:26.362Z"
                   }
                 ],
                 "schema": {
@@ -684,9 +822,9 @@
                     "client.deleted"
                   ],
                   "is_enabled": true,
-                  "created_at": "2024-08-07T12:29:12.016Z",
-                  "updated_at": "2024-08-07T12:29:12.016Z",
-                  "secret": "ff4e0df0d972783ef4c2b0ecbbb2bb73"
+                  "created_at": "2025-08-25T19:12:26.407Z",
+                  "updated_at": "2025-08-25T19:12:26.407Z",
+                  "secret": "0f81c7f1eba4a392e96abb7ad52ff15b"
                 },
                 "schema": {
                   "$ref": "#/components/schemas/webhook_endpoint"
@@ -769,8 +907,8 @@
                     "client.created"
                   ],
                   "is_enabled": false,
-                  "created_at": "2024-08-07T12:29:12.038Z",
-                  "updated_at": "2024-08-07T12:29:12.076Z"
+                  "created_at": "2025-08-25T19:12:26.428Z",
+                  "updated_at": "2025-08-25T19:12:26.440Z"
                 },
                 "schema": {
                   "$ref": "#/components/schemas/webhook_endpoint"
