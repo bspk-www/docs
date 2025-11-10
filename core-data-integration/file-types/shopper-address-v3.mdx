@@ -1,0 +1,82 @@
+---
+title: 'Shopper Addresses'
+---
+
+| File Prefix      | SHOPPER-ADDRESS |
+| ---------------- | --------------- |
+| Current Version  | V3              |
+
+## Overview
+
+The SHOPPER-ADDRESS_V3 import allows you to import, update, and manage shopper addresses. The import supports multiple addresses per shopper, setting default addresses, and soft-deleting addresses that are no longer active.
+
+## Key Features
+
+- **Multiple addresses per shopper**: Each shopper can have multiple addresses identified by unique `address_ref` values
+- **Update existing addresses**: Addresses with matching `address_ref` will be updated rather than duplicated
+- **Soft delete**: Use the `active` column to mark addresses as deleted without removing them from the database
+- **Undelete**: Setting `active=TRUE` on a previously deleted address will restore it
+- **Default address**: Mark one address as default per shopper using the `is_default` flag
+- **Grouped by shopper**: All rows are grouped by `shopper_ref` before processing
+
+## Column Specifications
+
+| **Attribute**        | **Format**                                                                                       | **Length** | **Required** | **Description**                                                                                      | **Example**           |
+| -------------------- | ------------------------------------------------------------------------------------------------ | ---------- | ------------ | ---------------------------------------------------------------------------------------------------- | --------------------- |
+| **shopper_ref**      | Alphanumeric                                                                                     | 1-255      | Yes          | Reference to the shopper. Must match an existing shopper's `external_id_str`                         | SHOPPER001            |
+| **address_ref**      | Alphanumeric                                                                                     | 1-255      | Yes          | Unique address reference (maps to `external_id_str`). Used to identify and update existing addresses | HOME_ADDR             |
+| **address_1**        | Alphanumeric                                                                                     | 1-255      | Yes          | Primary address line                                                                                 | 123 Main Street       |
+| **first_name**       | Alphanumeric                                                                                     | 1-255      | No           | First name for this address                                                                          | John                  |
+| **last_name**        | Alphanumeric                                                                                     | 1-255      | No           | Last name for this address                                                                           | Doe                   |
+| **company_name**     | Alphanumeric                                                                                     | 1-255      | No           | Company name for this address                                                                        | Acme Corp             |
+| **address_2**        | Alphanumeric                                                                                     | 1-255      | No           | Additional address line                                                                              | Apt 4B                |
+| **address_3**        | Alphanumeric                                                                                     | 1-255      | No           | Additional address line                                                                              | Building A            |
+| **address_4**        | Alphanumeric                                                                                     | 1-255      | No           | Additional address line                                                                              | PO Box #123           |
+| **city**             | Alphanumeric                                                                                     | 1-255      | No           | City name                                                                                            | New York              |
+| **province**         | Alphanumeric                                                                                     | 1-255      | No           | Province or state name                                                                               | New York              |
+| **province_code**    | Alphanumeric                                                                                     | 1-255      | No           | Province or state code                                                                               | NY                    |
+| **country**          | Alphanumeric                                                                                     | 1-255      | No           | Country name                                                                                         | United States         |
+| **country_code**     | ISO 3166. Must belong to [supported countries](/core-data-integration/supported-countries)       | 2          | No           | Country code                                                                                         | US                    |
+| **zip**              | Alphanumeric                                                                                     | 1-255      | No           | Postal/ZIP code                                                                                      | 10001                 |
+| **phone**            | E.164                                                                                            | 1-255      | No           | Phone number for this address                                                                        | +12125551234          |
+| **is_default**       | Boolean [TRUE\|FALSE]                                                                            |            | No           | Whether this is the default address for the shopper. Only one address per shopper should be default  | TRUE                  |
+| **active**           | Boolean [TRUE\|FALSE]                                                                            |            | No           | Whether the address is active. FALSE means the address is soft-deleted                               | TRUE                  |
+
+## Import Behavior
+
+### Shopper Reference Validation
+- If a `shopper_ref` does not match an existing shopper, a warning is added to the row but the import continues
+- No addresses will be imported for non-existent shoppers
+
+### Address Creation and Updates
+- Addresses are matched by `shopper_ref` + `address_ref` combination
+- If an address with the same `address_ref` exists for the shopper, it will be updated
+- If no matching address exists, a new one will be created
+- This prevents duplicate addresses for the same `address_ref`
+
+### Soft Delete and Undelete
+- Setting `active=FALSE` marks the address as deleted (`is_deleted=TRUE` in database)
+- Setting `active=TRUE` on a previously deleted address restores it (`is_deleted=FALSE`)
+- If `active` is not provided, the address defaults to active
+
+### Default Address
+- Set `is_default=TRUE` to mark an address as the default for a shopper
+- Only one address per shopper should be marked as default
+- If `is_default` is not provided, it defaults to FALSE
+
+## Example CSV
+
+```csv
+shopper_ref,address_ref,first_name,last_name,company_name,address_1,address_2,address_3,address_4,city,province,province_code,country,country_code,zip,phone,is_default,active
+SHOPPER001,HOME_ADDR,John,Doe,,123 Main Street,Apt 4B,Building A,,New York,New York,NY,United States,US,10001,+12125551234,true,true
+SHOPPER001,WORK_ADDR,John,Doe,Acme Corp,456 Business Ave,Suite 200,,,New York,New York,NY,United States,US,10002,+12125555678,false,true
+SHOPPER001,OLD_ADDR,John,Doe,,789 Old Street,,,,,,,United States,US,10003,,false,false
+SHOPPER002,BILLING_ADDR,Jane,Smith,,10 Rue de la Paix,,,,Paris,Île-de-France,,France,FR,75002,+33123456789,true,true
+```
+
+This example demonstrates:
+- Multiple addresses for SHOPPER001 (HOME_ADDR, WORK_ADDR, OLD_ADDR)
+- A default address (HOME_ADDR with `is_default=true`)
+- A soft-deleted address (OLD_ADDR with `active=false`)
+- A work address with company name
+- An address for a different shopper (SHOPPER002)
