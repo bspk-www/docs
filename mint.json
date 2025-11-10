@@ -67,6 +67,7 @@
             "core-data-integration/file-types/stores",
             "core-data-integration/file-types/sales-associates",
             "core-data-integration/file-types/shoppers",
+            "core-data-integration/file-types/shopper-address",
             "core-data-integration/file-types/products",
             "core-data-integration/file-types/product-variants",
             "core-data-integration/file-types/product-prices",
