@@ -1642,6 +1642,10 @@
         "items": {
           "type": "object",
           "properties": {
+            "bspk_id": {
+              "type": "integer",
+              "description": "BSPK internal unique identifier of the client"
+            },
             "client_id": {
               "type": "string",
               "description": "Unique identifier of the client"
