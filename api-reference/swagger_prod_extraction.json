@@ -303,6 +303,7 @@
               "application/json": {
                 "example": [
                   {
+                    "bspk_id": 12345,
                     "current_sales_associate_id": "SA_01",
                     "current_sales_associate_name": "FirstName-84 LastName-84",
                     "current_store_id": null,
@@ -1921,6 +1922,7 @@
             }
           },
           "required": [
+            "bspk_id",
             "client_id",
             "name",
             "title",
