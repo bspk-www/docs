@@ -47,7 +47,8 @@
                       "core-data-integration/file-types/product-prices",
                       "core-data-integration/file-types/product-inventories",
                       "core-data-integration/file-types/product-images",
-                      "core-data-integration/file-types/sales"
+                      "core-data-integration/file-types/sales",
+                      "core-data-integration/file-types/metafields"
                     ]
                   },
                   "core-data-integration/supported-currencies",
@@ -192,8 +193,8 @@
       },
       {
         "anchor": "Get Support",
-        "href": "mailto:support@bspk.com",
-        "icon": "envelope"
+        "icon": "envelope",
+        "href": "mailto:support@bspk.com"
       }
     ]
   },

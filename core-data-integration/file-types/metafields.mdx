@@ -1,0 +1,172 @@
+---
+title: "Metafields"
+---
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Attribute</strong></td>
+      <td><strong>Format</strong></td>
+      <td><strong>Length</strong></td>
+      <td><strong>Required</strong></td>
+      <td><strong>Description</strong></td>
+      <td><strong>Example</strong></td>
+    </tr>
+
+    <tr>
+      <td><strong>owner_type</strong></td>
+      <td>String</td>
+      <td>N/A</td>
+      <td>Yes</td>
+      <td>
+        The type of object that owns the metafield. Acceptable values include
+        <code>Shopper</code>
+      </td>
+      <td>Shopper</td>
+    </tr>
+
+    <tr>
+      <td><strong>owner_ref</strong></td>
+      <td>String (format depends on type)</td>
+      <td>N/A</td>
+      <td>Yes</td>
+      <td>
+        A unique identifier for the owner. The format depends on the
+        <code>owner_type</code>.
+      </td>
+      <td>sh-1234</td>
+    </tr>
+
+    <tr>
+      <td><strong>namespace</strong></td>
+      <td>String</td>
+      <td>N/A</td>
+      <td>Yes</td>
+      <td>
+        A grouping for the metafield. Typically <code>custom</code> for
+        user-defined fields.
+      </td>
+      <td>custom</td>
+    </tr>
+
+    <tr>
+      <td><strong>key</strong></td>
+      <td>String</td>
+      <td>N/A</td>
+      <td>Yes</td>
+      <td>
+        A unique identifier for the metafield within its namespace. It should
+        be unique per owner and namespace.
+      </td>
+      <td>favorite_color</td>
+    </tr>
+
+    <tr>
+      <td><strong>is_list</strong></td>
+      <td>Boolean [true|false]</td>
+      <td>N/A</td>
+      <td>Yes</td>
+      <td>
+        Indicates whether the metafield contains a list of values. Acceptable
+        values are <code>true</code> or <code>false</code>.
+      </td>
+      <td>false</td>
+    </tr>
+
+    <tr>
+      <td><strong>value_type</strong></td>
+      <td>String</td>
+      <td>N/A</td>
+      <td>Yes</td>
+      <td>
+        The data type of the metafield value. Acceptable values include
+        <code>single_line_text_field</code>, <code>boolean</code>,
+        <code>date</code>, etc.
+      </td>
+      <td>single_line_text_field</td>
+    </tr>
+
+    <tr>
+      <td><strong>value</strong></td>
+      <td>Depends on <code>value_type</code></td>
+      <td>N/A</td>
+      <td>Yes</td>
+      <td>
+        The actual value of the metafield. Accepted values depend on the
+        selected <code>value_type</code>.
+      </td>
+      <td>Blue</td>
+    </tr>
+
+    <tr>
+      <td><strong>active</strong></td>
+      <td>Boolean [true|false]</td>
+      <td>N/A</td>
+      <td>Yes</td>
+      <td>
+        Defines whether the metafield should be active. When set to
+        <code>false</code>, the metafield should be removed.
+      </td>
+      <td>true</td>
+    </tr>
+  </tbody>
+</table>
+
+### Owner Type
+
+The <code>owner_type</code> field defines which BSPK object the metafield belongs to. Available options:
+
+* <code>Shopper</code>
+
+### Owner Reference
+
+The <code>owner_ref</code> must match an existing object in BSPK for the provided <code>owner_type</code>. Its format may vary depending on the type of owner.
+
+### Namespace and Key
+
+The combination of <code>namespace</code> and <code>key</code> identifies the metafield definition within a given owner.
+
+For example:
+
+* <code>namespace</code>: <code>custom</code>
+* <code>key</code>: <code>favorite_color</code>
+
+This allows integrations to group related metafields and avoid naming collisions.
+
+### List Values
+
+When <code>is_list</code> is set to <code>true</code>, the metafield value is expected to represent a list of values instead of a single value.
+
+When <code>is_list</code> is set to <code>false</code>, the metafield value is treated as a single value.
+
+### Value Type
+
+The <code>value_type</code> determines how the <code>value</code> field is interpreted. Examples include:
+
+* <code>single_line_text_field</code>
+* <code>boolean</code>
+* <code>date</code>
+
+The provided <code>value</code> must be compatible with the selected <code>value_type</code>.
+
+### Active
+
+The <code>active</code> field controls whether the metafield should exist in BSPK.
+
+* When <code>true</code>, the metafield is created or updated
+* When <code>false</code>, the metafield is removed
+
+
+### Sample File
+
+```csv
+owner_type,owner_ref,namespace,key,is_list,value_type,value,active
+Shopper,sh-1234,loyalty,id,false,single_line_text_field,1304,true
+Shopper,sh-1234,loyalty,program_subscription,false,single_line_text_field,true,true
+Shopper,sh-1234,loyalty,points,false,single_line_text_field,600,true
+Shopper,sh-1234,loyalty,status,false,single_line_text_field,Premium,true
+Shopper,sh-789,loyalty,id,false,single_line_text_field,8776,true
+Shopper,sh-789,loyalty,program_subscription,false,single_line_text_field,true,true
+Shopper,sh-789,loyalty,points,false,single_line_text_field,100,true
+Shopper,sh-789,loyalty,status,false,single_line_text_field,Premium,true
+Shopper,sh-789,prefs,tags,true,single_line_text_field,"tag1;tag2",true
