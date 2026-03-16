@@ -223,11 +223,11 @@ title: "Shoppers"
 
     <tr>
       <td><strong>preferences</strong></td>
-      <td>Alphanumeric ; separated list</td>
-      <td>1-255</td>
+      <td>Alphanumeric, key:value ; separated list</td>
+      <td>1-500</td>
       <td>No</td>
       <td>Shopper preferred product categories. Must belong to the company "shopper preferences", as explained below</td>
-      <td>Young Professional; Lawyer</td>
+      <td>profession:Young Professional,Lawyer</td>
     </tr>
 
     <tr>
@@ -430,12 +430,19 @@ The `preferences` column is used to populate shopper's preferred product categor
 
 * styles: Modern, Vintage
 
-Then a shopper can be imported with the following preferences: `Green;Orange;Black;Vintage`. And shopper preferred product categories will be:
+* dislike-color: Green, Orange, White
+
+Then a shopper can be imported with the following preferences: `color:Green,Orange;Black;styles:Vintage;dislike-color:Green`. And shopper preferred product categories will be:
 
 * color: Green, Orange
 
 * styles: Vintage
 
+* dislike-color: Green
+
 (`Black` is ignored because it can't be mapped to any company shopper preferences)
+
+
+### Shopper's Addresses
 
 <Warning> **Important:** Once you start importing addresses using the **SHOPPER-ADDRESS** file, BSPK will **ignore any address fields in this file**. From that point on, the **SHOPPER-ADDRESS** file becomes the **source of truth** for shopper addresses. </Warning>
