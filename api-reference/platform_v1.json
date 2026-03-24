@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.2",
+  "openapi": "3.0.3",
   "info": {
     "title": "PLATFORM API V1",
     "version": "1.0.0",
@@ -12,21 +12,18 @@
   "servers": [
     {
       "url": "https://api.bspk.com",
-      "description": "Production Server"
-    },
-    {
-      "url": "https://api-dev2.bspk.com",
-      "description": "Dev Server"
+      "description": "Production"
     }
   ],
   "paths": {
     "/api/platform/v1/clients/{id}/external_link": {
       "post": {
-        "summary": "Links a BSPK Client with a Client in an external backend system",
+        "deprecated": true,
+        "summary": "[Deprecated] Links a BSPK Client with a Client in an external backend system",
         "tags": [
           "Clients"
         ],
-        "description": "Links a BSPK Client with a client present at your backend system like an ERP.",
+        "description": "**Deprecated:** Use `POST /api/platform/v1/shoppers/{id}/external_link` instead.\n\nLinks a BSPK Client with a client present at your backend system like an ERP.",
         "operationId": "clientExternalLink",
         "security": [
           {
@@ -46,10 +43,20 @@
         ],
         "responses": {
           "204": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
           },
           "422": {
-            "description": "Client is already linked with an external entity"
+            "description": "Client is already linked with an external entity",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
           }
         },
         "requestBody": {
@@ -73,11 +80,12 @@
         }
       },
       "delete": {
-        "summary": "Removes the Link from a BSPK Client with a Client in an external backend system",
+        "deprecated": true,
+        "summary": "[Deprecated] Removes the Link from a BSPK Client with a Client in an external backend system",
         "tags": [
           "Clients"
         ],
-        "description": "Removes the Link from BSPK Client with a client present at your backend system like an ERP.",
+        "description": "**Deprecated:** Use `DELETE /api/platform/v1/shoppers/{id}/external_link` instead.\n\nRemoves the Link from BSPK Client with a client present at your backend system like an ERP.",
         "operationId": "clientRemoveExternalLink",
         "security": [
           {
@@ -97,210 +105,10 @@
         ],
         "responses": {
           "204": {
-            "description": "Successful response"
-          }
-        }
-      }
-    },
-    "/api/platform/v1/clients/{id}/merges": {
-      "post": {
-        "summary": "Merges a Client to another Client",
-        "tags": [
-          "Clients"
-        ],
-        "description": "Merges a BSPK Client with another Client.",
-        "operationId": "mergeClient",
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "BSPK's unique identifier of the client.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response"
-          },
-          "422": {
-            "description": "Client is already linked with an external entity"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "client": {
-                    "type": "object",
-                    "properties": {
-                      "shopper_ref": {
-                        "type": "string",
-                        "description": "Client's unique identifier provided by your backend system.",
-                        "example": "CLI-789"
-                      },
-                      "first_name": {
-                        "type": "string",
-                        "description": "Client's first name.",
-                        "example": "John"
-                      },
-                      "last_name": {
-                        "type": "string",
-                        "description": "Client's last name.",
-                        "example": "Meyer"
-                      },
-                      "alternate_first_name": {
-                        "type": "string",
-                        "description": "Client's alternate first name.",
-                        "example": "Johnny"
-                      },
-                      "alternate_last_name": {
-                        "type": "string",
-                        "description": "Client's alternate last name.",
-                        "example": "Meyers"
-                      },
-                      "gender": {
-                        "type": "string",
-                        "description": "Gender of the client, being: M = Male, F = Female, NB = Non-binary",
-                        "example": "M"
-                      },
-                      "email": {
-                        "type": "string",
-                        "description": "Client's email",
-                        "example": "client1@email.com"
-                      },
-                      "mobile_phone": {
-                        "type": "string",
-                        "description": "Client's mobile phone (with country code)",
-                        "example": "+5511987669944"
-                      },
-                      "other_phone": {
-                        "type": "string",
-                        "description": "Client's other phone (with country code)",
-                        "example": "+551154772457"
-                      },
-                      "address": {
-                        "type": "string",
-                        "description": "Client's address",
-                        "example": "Av. Paulista, 1000"
-                      },
-                      "address_2": {
-                        "type": "string",
-                        "description": "Client's address 2nd line",
-                        "example": "10th floor"
-                      },
-                      "address_3": {
-                        "type": "string",
-                        "description": "Client's address 3rd line",
-                        "example": "Suite 100"
-                      },
-                      "address_4": {
-                        "type": "string",
-                        "description": "Client's address 4th line",
-                        "example": "Building 1"
-                      },
-                      "city": {
-                        "type": "string",
-                        "description": "Client's city",
-                        "example": "New York"
-                      },
-                      "state": {
-                        "type": "string",
-                        "description": "Client's state",
-                        "example": "NY"
-                      },
-                      "zip_code": {
-                        "type": "string",
-                        "description": "Client's zip code",
-                        "example": "10001"
-                      },
-                      "country_code": {
-                        "type": "string",
-                        "description": "Client's country code",
-                        "example": "US"
-                      },
-                      "segment": {
-                        "type": "string",
-                        "description": "Client's segment",
-                        "example": "VIP"
-                      },
-                      "preferred_contact_channel": {
-                        "type": "string",
-                        "description": "Valid entries are chat, email, line, whatsapp, wechat, call",
-                        "example": "whatsapp"
-                      },
-                      "nationality": {
-                        "type": "string",
-                        "description": "Client's Nationality",
-                        "example": "US"
-                      },
-                      "passport_number": {
-                        "type": "string",
-                        "description": "Client's Passport Number",
-                        "example": "AA0199929992"
-                      },
-                      "languages": {
-                        "type": "string",
-                        "description": "Client's languages",
-                        "example": "en;fr"
-                      },
-                      "email_contact": {
-                        "type": "string",
-                        "description": "Define if client gave their aggreement to be contacted by email",
-                        "example": "true"
-                      },
-                      "phone_call_contact": {
-                        "type": "string",
-                        "description": "Define if client gave their aggreement to be contacted by phone call",
-                        "example": "false"
-                      },
-                      "chat_contact": {
-                        "type": "string",
-                        "description": "Define if client gave their aggreement to be contacted by chat",
-                        "example": "false"
-                      },
-                      "interested_in_new_products": {
-                        "type": "string",
-                        "description": "Define if client is interested in receiving messages about new products",
-                        "example": "true"
-                      },
-                      "birthday": {
-                        "type": "string",
-                        "description": "Client's birth day, full or partial (YYYY-MM-DD or MM-DD)",
-                        "example": "1982-02-22"
-                      },
-                      "creation_date": {
-                        "type": "string",
-                        "description": "Client's creation date",
-                        "example": "01/05/2022"
-                      },
-                      "store_ref": {
-                        "type": "string",
-                        "description": "Client's record was created at this store",
-                        "example": "22"
-                      },
-                      "sales_associate_ref": {
-                        "type": "string",
-                        "description": "Client's current associate",
-                        "example": "1101"
-                      },
-                      "preferences": {
-                        "type": "string",
-                        "description": "Client's preferred product categories. Must belong to the company “shopper preferences”",
-                        "example": "Young Professional; Lawyer"
-                      }
-                    }
-                  }
-                }
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
               }
             }
           }
@@ -309,7 +117,7 @@
     },
     "/api/platform/v1/clients": {
       "post": {
-        "summary": "Creates or updates a Client (Shopper) in BSPK",
+        "summary": "[Deprecated] Creates or updates a Client (Shopper) in BSPK",
         "tags": [
           "Clients"
         ],
@@ -323,10 +131,50 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Successful response on update"
+            "description": "Successful response on update without external_id_str",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "external_id",
+                    "warnings",
+                    "updated_at",
+                    "created_at"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "external_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           },
           "422": {
-            "description": "Missing required fields"
+            "description": "Missing required fields",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
           }
         },
         "requestBody": {
@@ -495,7 +343,7 @@
                       },
                       "preferences": {
                         "type": "string",
-                        "description": "Client's preferred product categories. Must belong to the company \"shopper preferences\"",
+                        "description": "Client's preferred product categories. Must belong to the company \"shopper preferences\". Supports two formats: (1) Flat values separated by semicolons, e.g. \"Young Professional; Lawyer\". (2) Key:value pairs where key is the preference group id and values are comma-separated, e.g. \"Right Thumb Ring Size:40,41;Necklace Length:Classic\". The key:value format allows assigning the same value to different preference groups.",
                         "example": "Young Professional; Lawyer"
                       },
                       "ignore_columns": {
@@ -520,6 +368,576 @@
                     }
                   }
                 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/platform/v1/shoppers": {
+      "post": {
+        "summary": "Creates or updates a Shopper in BSPK",
+        "tags": [
+          "Shoppers"
+        ],
+        "description": "Creates or updates a Shopper in BSPK",
+        "operationId": "shopperCreate",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "external_id",
+                    "warnings",
+                    "updated_at",
+                    "created_at"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "external_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "shopper": {
+                    "type": "object",
+                    "properties": {
+                      "shopper_ref": {
+                        "type": "string",
+                        "description": "Shopper's unique identifier provided by your backend system.",
+                        "example": "CLI-789"
+                      },
+                      "first_name": {
+                        "type": "string",
+                        "description": "Shopper's first name.",
+                        "example": "John"
+                      },
+                      "last_name": {
+                        "type": "string",
+                        "description": "Shopper's last name.",
+                        "example": "Meyer"
+                      },
+                      "alternate_first_name": {
+                        "type": "string",
+                        "description": "Shopper's alternate first name.",
+                        "example": "Johnny"
+                      },
+                      "alternate_last_name": {
+                        "type": "string",
+                        "description": "Shopper's alternate last name.",
+                        "example": "Meyers"
+                      },
+                      "gender": {
+                        "type": "string",
+                        "description": "Gender of the shopper, being: M = Male or F = Female",
+                        "example": "M"
+                      },
+                      "email": {
+                        "type": "string",
+                        "description": "Shopper's email",
+                        "example": "shopper1@email.com"
+                      },
+                      "mobile_phone": {
+                        "type": "string",
+                        "description": "Shopper's mobile phone (with country code)",
+                        "example": "+5511987669944"
+                      },
+                      "other_phone": {
+                        "type": "string",
+                        "description": "Shopper's other phone (with country code)",
+                        "example": "+551154772457"
+                      },
+                      "address": {
+                        "type": "string",
+                        "description": "Shopper's address",
+                        "example": "Av. Paulista, 1000"
+                      },
+                      "address_2": {
+                        "type": "string",
+                        "description": "Shopper's address 2nd line",
+                        "example": "10th floor"
+                      },
+                      "address_3": {
+                        "type": "string",
+                        "description": "Shopper's address 3rd line",
+                        "example": "Suite 100"
+                      },
+                      "address_4": {
+                        "type": "string",
+                        "description": "Shopper's address 4th line",
+                        "example": "Building 1"
+                      },
+                      "city": {
+                        "type": "string",
+                        "description": "Shopper's city",
+                        "example": "New York"
+                      },
+                      "state": {
+                        "type": "string",
+                        "description": "Shopper's state",
+                        "example": "NY"
+                      },
+                      "zip_code": {
+                        "type": "string",
+                        "description": "Shopper's zip code",
+                        "example": "10001"
+                      },
+                      "country_code": {
+                        "type": "string",
+                        "description": "Shopper's country code",
+                        "example": "US"
+                      },
+                      "segment": {
+                        "type": "string",
+                        "description": "Shopper's segment",
+                        "example": "VIP"
+                      },
+                      "preferred_contact_channel": {
+                        "type": "string",
+                        "description": "Valid entries are chat, email, line, whatsapp, wechat, call",
+                        "example": "whatsapp"
+                      },
+                      "nationality": {
+                        "type": "string",
+                        "description": "Shopper's Nationality",
+                        "example": "US"
+                      },
+                      "passport_number": {
+                        "type": "string",
+                        "description": "Shopper's Passport Number",
+                        "example": "AA0199929992"
+                      },
+                      "languages": {
+                        "type": "string",
+                        "description": "Shopper's languages",
+                        "example": "en;fr"
+                      },
+                      "email_contact": {
+                        "type": "string",
+                        "description": "Define if shopper gave their agreement to be contacted by email",
+                        "example": "true"
+                      },
+                      "phone_call_contact": {
+                        "type": "string",
+                        "description": "Define if shopper gave their agreement to be contacted by phone call",
+                        "example": "false"
+                      },
+                      "chat_contact": {
+                        "type": "string",
+                        "description": "Define if shopper gave their agreement to be contacted by chat",
+                        "example": "false"
+                      },
+                      "do_not_contact": {
+                        "type": "string",
+                        "description": "Define if shopper should not be contacted, regardless of the other contact preferences",
+                        "example": "false"
+                      },
+                      "interested_in_new_products": {
+                        "type": "string",
+                        "description": "Define if shopper is interested in receiving messages about new products",
+                        "example": "true"
+                      },
+                      "birthday": {
+                        "type": "string",
+                        "description": "Shopper's birth day, full or partial (YYYY-MM-DD or MM-DD)",
+                        "example": "1982-02-22"
+                      },
+                      "creation_date": {
+                        "type": "string",
+                        "description": "Shopper's creation date",
+                        "example": "01/05/2022"
+                      },
+                      "store_ref": {
+                        "type": "string",
+                        "description": "Shopper's record was created at this store",
+                        "example": "22"
+                      },
+                      "sales_associate_ref": {
+                        "type": "string",
+                        "description": "Shopper's current associate",
+                        "example": "1101"
+                      },
+                      "preferences": {
+                        "type": "string",
+                        "description": "Shopper's preferred product categories. Must belong to the company \"shopper preferences\". Supports two formats: (1) Flat values separated by semicolons, e.g. \"Young Professional; Lawyer\". (2) Key:value pairs where key is the preference group id and values are comma-separated, e.g. \"Right Thumb Ring Size:40,41;Necklace Length:Classic\". The key:value format allows assigning the same value to different preference groups.",
+                        "example": "Young Professional; Lawyer"
+                      },
+                      "ignore_columns": {
+                        "type": "string",
+                        "description": "Attributes to be ignored while saving the record (BSPK will not override values for the specified attributes).",
+                        "example": "first_name;last_name"
+                      },
+                      "barcode": {
+                        "type": "string",
+                        "description": "Shopper's barcode",
+                        "example": "1234567890123"
+                      },
+                      "profile_type": {
+                        "type": "string",
+                        "description": "Shopper's profile type (default: person)",
+                        "enum": [
+                          "person",
+                          "organization"
+                        ],
+                        "example": "person"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/platform/v1/shoppers/{id}/external_link": {
+      "post": {
+        "summary": "Links a BSPK Shopper with a Shopper in an external backend system",
+        "tags": [
+          "Shoppers"
+        ],
+        "description": "Links a BSPK Shopper with a shopper present at your backend system like an ERP.",
+        "operationId": "shopperExternalLink",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Shopper's BSPK ID.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Shopper is already linked with an external entity",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "shopper_ref": {
+                    "type": "string",
+                    "description": "Shopper's unique identifier provided by your backend system.",
+                    "example": "CLI-789"
+                  }
+                },
+                "required": [
+                  "shopper_ref"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Removes the link from a BSPK Shopper with a Shopper in an external backend system",
+        "tags": [
+          "Shoppers"
+        ],
+        "description": "Removes the link from BSPK Shopper with a shopper present at your backend system like an ERP.",
+        "operationId": "shopperRemoveExternalLink",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Shopper's BSPK ID.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/platform/v1/shoppers/{shopper_ref}/metafields": {
+      "get": {
+        "summary": "List metafields for a shopper",
+        "tags": [
+          "Shopper Metafields"
+        ],
+        "description": "Returns all metafields for the specified shopper.",
+        "operationId": "listShopperMetafields",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "shopper_ref",
+            "in": "path",
+            "description": "Shopper external ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response, returns array of metafields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/metafield_array"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Shopper not found",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Bulk upsert metafields for a shopper",
+        "tags": [
+          "Shopper Metafields"
+        ],
+        "description": "Creates or updates metafields for the specified shopper. Metafields are matched by namespace and key.",
+        "operationId": "upsertShopperMetafields",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "shopper_ref",
+            "in": "path",
+            "description": "Shopper external ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful upsert, returns all metafields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/metafield_array"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation errors",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Shopper not found",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "metafields": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "namespace": {
+                          "type": "string",
+                          "example": "custom"
+                        },
+                        "key": {
+                          "type": "string",
+                          "example": "loyalty_tier"
+                        },
+                        "value": {
+                          "type": "string",
+                          "example": "gold"
+                        },
+                        "value_type": {
+                          "type": "string",
+                          "enum": [
+                            "single_line_text_field",
+                            "boolean",
+                            "date",
+                            "json"
+                          ],
+                          "example": "single_line_text_field"
+                        },
+                        "is_list": {
+                          "type": "boolean",
+                          "example": false
+                        }
+                      },
+                      "required": [
+                        "namespace",
+                        "key",
+                        "value",
+                        "value_type"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "metafields"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/platform/v1/shoppers/{shopper_ref}/metafields/{namespace}/{key}": {
+      "delete": {
+        "summary": "Delete a metafield",
+        "tags": [
+          "Shopper Metafields"
+        ],
+        "description": "Deletes a metafield identified by namespace and key.",
+        "operationId": "deleteShopperMetafield",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "shopper_ref",
+            "in": "path",
+            "description": "Shopper external ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "namespace",
+            "in": "path",
+            "description": "Metafield namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "key",
+            "in": "path",
+            "description": "Metafield key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Metafield not found",
+            "content": {
+              "application/json": {
+                "schema": {}
               }
             }
           }
@@ -586,7 +1004,12 @@
             }
           },
           "422": {
-            "description": "Empty inventory data"
+            "description": "Empty inventory data",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
           }
         },
         "requestBody": {
@@ -645,104 +1068,6 @@
         }
       }
     },
-    "/api/platform/v1/sales": {
-      "post": {
-        "summary": "Creates or updates a Sale in BSPK",
-        "tags": [
-          "Sales"
-        ],
-        "description": "Creates or updates a Sale in BSPK",
-        "operationId": "saleCreateOrUpdate",
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Successful update"
-          },
-          "422": {
-            "description": "Unprocessable entity"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "sale": {
-                    "type": "object",
-                    "properties": {
-                      "sale_ref": {
-                        "type": "string",
-                        "description": "Purchase's unique identifier provided by your backend system.",
-                        "example": "SALE-789"
-                      },
-                      "shopper_ref": {
-                        "type": "string",
-                        "description": "Shopper's unique identifier provided by your backend system.",
-                        "example": "CLI-789"
-                      },
-                      "store_ref": {
-                        "type": "string",
-                        "description": "Store's unique identifier provided by your backend system.",
-                        "example": "STR-789"
-                      },
-                      "sales_associate_ref": {
-                        "type": "string",
-                        "description": "Sales Associate's unique identifier provided by your backend system.",
-                        "example": "SA-789"
-                      },
-                      "created_at": {
-                        "type": "string",
-                        "description": "Date-time the purchase was created.",
-                        "example": "2023-04-23T18:25:43.511"
-                      },
-                      "currency_code": {
-                        "type": "string",
-                        "description": "Currency code",
-                        "example": "USD"
-                      },
-                      "line_items": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "product_ref": {
-                              "type": "string",
-                              "description": "Product's unique identifier provided by your backend system.",
-                              "example": "PROD-789"
-                            },
-                            "sku": {
-                              "type": "string",
-                              "description": "Product's SKU.",
-                              "example": "SKU12345"
-                            },
-                            "quantity": {
-                              "type": "string",
-                              "description": "Quantity of the product.",
-                              "example": "2"
-                            },
-                            "price": {
-                              "type": "string",
-                              "description": "Price of the product.",
-                              "example": "300"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/platform/v1/webhook_endpoints": {
       "get": {
         "summary": "List Webhook Endpoints",
@@ -763,28 +1088,28 @@
               "application/json": {
                 "example": [
                   {
-                    "id": 2,
+                    "id": 17,
                     "target_url": "https://taget_url.com/endpoint/to/hit_2",
                     "events": [
-                      "client.created",
-                      "client.updated",
-                      "client.deleted"
+                      "shopper.created",
+                      "shopper.updated",
+                      "shopper.deleted"
                     ],
                     "is_enabled": true,
-                    "created_at": "2025-08-25T19:12:26.365Z",
-                    "updated_at": "2025-08-25T19:12:26.365Z"
+                    "created_at": "2026-03-11T18:34:54.882Z",
+                    "updated_at": "2026-03-11T18:34:54.882Z"
                   },
                   {
-                    "id": 1,
+                    "id": 16,
                     "target_url": "https://taget_url.com/endpoint/to/hit_1",
                     "events": [
-                      "client.created",
-                      "client.updated",
-                      "client.deleted"
+                      "shopper.created",
+                      "shopper.updated",
+                      "shopper.deleted"
                     ],
                     "is_enabled": true,
-                    "created_at": "2025-08-25T19:12:26.362Z",
-                    "updated_at": "2025-08-25T19:12:26.362Z"
+                    "created_at": "2026-03-11T18:34:54.880Z",
+                    "updated_at": "2026-03-11T18:34:54.880Z"
                   }
                 ],
                 "schema": {
@@ -814,17 +1139,17 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": 5,
-                  "target_url": "https://mycompany.com/incoming_webhooks/clients",
+                  "id": 20,
+                  "target_url": "https://mycompany.com/incoming_webhooks/shoppers",
                   "events": [
-                    "client.created",
-                    "client.updated",
-                    "client.deleted"
+                    "shopper.created",
+                    "shopper.updated",
+                    "shopper.deleted"
                   ],
                   "is_enabled": true,
-                  "created_at": "2025-08-25T19:12:26.407Z",
-                  "updated_at": "2025-08-25T19:12:26.407Z",
-                  "secret": "0f81c7f1eba4a392e96abb7ad52ff15b"
+                  "created_at": "2026-03-11T18:34:54.941Z",
+                  "updated_at": "2026-03-11T18:34:54.941Z",
+                  "secret": "a625a98be58a621c29ffef103083d43e"
                 },
                 "schema": {
                   "$ref": "#/components/schemas/webhook_endpoint"
@@ -849,13 +1174,27 @@
                   },
                   "events": {
                     "type": "array",
+                    "description": "List of events to subscribe to. Use `shopper.*` events for shopper notifications. `client.*` events are deprecated — use `shopper.*` instead.",
                     "items": {
-                      "type": "string"
+                      "type": "string",
+                      "enum": [
+                        "shopper.created",
+                        "shopper.updated",
+                        "shopper.deleted",
+                        "client.created",
+                        "client.updated",
+                        "client.deleted",
+                        "file_import.finished",
+                        "cart.created",
+                        "metafield.created",
+                        "metafield.updated",
+                        "metafield.deleted"
+                      ]
                     },
                     "example": [
-                      "client.created",
-                      "client.updated",
-                      "client.deleted",
+                      "shopper.created",
+                      "shopper.updated",
+                      "shopper.deleted",
                       "file_import.finished"
                     ]
                   }
@@ -901,14 +1240,14 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": 6,
+                  "id": 21,
                   "target_url": "https://taget_url.com/endpoint/to/hit_5",
                   "events": [
-                    "client.created"
+                    "shopper.created"
                   ],
                   "is_enabled": false,
-                  "created_at": "2025-08-25T19:12:26.428Z",
-                  "updated_at": "2025-08-25T19:12:26.440Z"
+                  "created_at": "2026-03-11T18:34:54.954Z",
+                  "updated_at": "2026-03-11T18:34:54.980Z"
                 },
                 "schema": {
                   "$ref": "#/components/schemas/webhook_endpoint"
@@ -934,19 +1273,32 @@
                   },
                   "events": {
                     "type": "array",
+                    "description": "List of events to subscribe to. Use `shopper.*` events for shopper notifications. `client.*` events are deprecated — use `shopper.*` instead.",
                     "items": {
-                      "type": "string"
+                      "type": "string",
+                      "enum": [
+                        "shopper.created",
+                        "shopper.updated",
+                        "shopper.deleted",
+                        "client.created",
+                        "client.updated",
+                        "client.deleted",
+                        "file_import.finished",
+                        "cart.created",
+                        "metafield.created",
+                        "metafield.updated",
+                        "metafield.deleted"
+                      ]
                     },
                     "example": [
-                      "client.created",
-                      "client.updated",
-                      "client.deleted",
+                      "shopper.created",
+                      "shopper.updated",
+                      "shopper.deleted",
                       "file_import.finished"
                     ]
                   }
                 },
                 "required": [
-                  "target_url",
                   "events",
                   "is_enabled"
                 ]
@@ -980,7 +1332,12 @@
         ],
         "responses": {
           "204": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
           }
         }
       }
@@ -1023,9 +1380,9 @@
               "type": "string"
             },
             "example": [
-              "client.created",
-              "client.updated",
-              "client.deleted"
+              "shopper.created",
+              "shopper.updated",
+              "shopper.deleted"
             ]
           },
           "is_enabled": {
@@ -1052,6 +1409,54 @@
           "target_url",
           "events",
           "is_enabled",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "metafield_array": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/metafield"
+        }
+      },
+      "metafield": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "namespace": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "value_type": {
+            "type": "string"
+          },
+          "is_list": {
+            "type": "boolean"
+          },
+          "json_value": {
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "namespace",
+          "key",
+          "value",
+          "value_type",
+          "is_list",
           "created_at",
           "updated_at"
         ]

@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.2",
+  "openapi": "3.0.3",
   "info": {
     "title": "EXTRACTION API V1",
     "version": "1.0.0",
@@ -11,12 +11,12 @@
   },
   "servers": [
     {
-      "url": "https://api.bspk.com",
-      "description": "Production Server"
+      "url": "https://api-dev2.bspk.com",
+      "description": "Development"
     },
     {
-      "url": "https://api-dev2.bspk.com",
-      "description": "Dev Server"
+      "url": "http://localhost:3000",
+      "description": "Local"
     }
   ],
   "paths": {

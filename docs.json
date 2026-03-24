@@ -8,6 +8,11 @@
     "dark": "#171717"
   },
   "favicon": "/favicon.png",
+  "api": {
+    "playground": {
+      "display": "interactive"
+    }
+  },
   "navigation": {
     "anchors": [
       {
@@ -81,6 +86,10 @@
           },
           {
             "tab": "API Reference",
+            "openapi": [
+              "api-reference/platform_v1.json",
+              "api-reference/swagger_prod_extraction.json"
+            ],
             "groups": [
               {
                 "group": "Using the API",
@@ -101,9 +110,31 @@
                   {
                     "group": "Clients",
                     "pages": [
-                      "api-reference/platform-api/endpoints/clients/creates-or-updates-a-client-shopper-in-bspk",
-                      "api-reference/platform-api/endpoints/clients/links-a-bspk-client-with-a-client-in-an-external-backend-system",
-                      "api-reference/platform-api/endpoints/clients/removes-the-link-from-a-bspk-client-with-a-client-in-an-external-backend-system"
+                      "api-reference/platform-api/endpoints/clients/[deprecated]-creates-or-updates-a-client-shopper-in-bspk",
+                      "api-reference/platform-api/endpoints/clients/[deprecated]-links-a-bspk-client-with-a-client-in-an-external-backend-system",
+                      "api-reference/platform-api/endpoints/clients/[deprecated]-removes-the-link-from-a-bspk-client-with-a-client-in-an-external-backend-system"
+                    ]
+                  },
+                  {
+                    "group": "Shoppers",
+                    "pages": [
+                      "api-reference/platform-api/endpoints/shoppers/creates-or-updates-a-shopper-in-bspk",
+                      "api-reference/platform-api/endpoints/shoppers/links-a-bspk-shopper-with-a-shopper-in-an-external-backend-system",
+                      "api-reference/platform-api/endpoints/shoppers/removes-the-link-from-a-bspk-shopper-with-a-shopper-in-an-external-backend-system"
+                    ]
+                  },
+                  {
+                    "group": "Shopper Metafields",
+                    "pages": [
+                      "api-reference/platform-api/endpoints/shopper-metafields/list-metafields-for-a-shopper",
+                      "api-reference/platform-api/endpoints/shopper-metafields/bulk-upsert-metafields-for-a-shopper",
+                      "api-reference/platform-api/endpoints/shopper-metafields/delete-a-metafield"
+                    ]
+                  },
+                  {
+                    "group": "Products",
+                    "pages": [
+                      "api-reference/platform-api/endpoints/products/creates-or-updates-inventory-quantities-in-batch"
                     ]
                   },
                   {
@@ -193,8 +224,8 @@
       },
       {
         "anchor": "Get Support",
-        "icon": "envelope",
-        "href": "mailto:support@bspk.com"
+        "href": "mailto:support@bspk.com",
+        "icon": "envelope"
       }
     ]
   },
