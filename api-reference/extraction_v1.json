@@ -11,12 +11,8 @@
   },
   "servers": [
     {
-      "url": "https://api-dev2.bspk.com",
-      "description": "Development"
-    },
-    {
-      "url": "http://localhost:3000",
-      "description": "Local"
+      "url": "https://api.bspk.com",
+      "description": "Production"
     }
   ],
   "paths": {

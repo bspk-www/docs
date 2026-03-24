@@ -88,7 +88,7 @@
             "tab": "API Reference",
             "openapi": [
               "api-reference/platform_v1.json",
-              "api-reference/swagger_prod_extraction.json"
+              "api-reference/extraction_v1.json"
             ],
             "groups": [
               {
@@ -129,6 +129,14 @@
                       "api-reference/platform-api/endpoints/shopper-metafields/list-metafields-for-a-shopper",
                       "api-reference/platform-api/endpoints/shopper-metafields/bulk-upsert-metafields-for-a-shopper",
                       "api-reference/platform-api/endpoints/shopper-metafields/delete-a-metafield"
+                    ]
+                  },
+                  {
+                    "group": "Shopper Addresses",
+                    "pages": [
+                      "api-reference/platform-api/endpoints/shopper-addresses/create-an-address-for-a-shopper",
+                      "api-reference/platform-api/endpoints/shopper-addresses/update-a-shopper-address",
+                      "api-reference/platform-api/endpoints/shopper-addresses/delete-a-shopper-address"
                     ]
                   },
                   {

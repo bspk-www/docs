@@ -34,7 +34,7 @@ This reads `openapi/*.yaml`, strips endpoints and schemas marked `x-internal: tr
 
 ```bash
 cp openapi/public/platform_v1.json ~/Projects/bspk/docs/api-reference/platform_v1.json
-cp openapi/public/extraction_v1.json ~/Projects/bspk/docs/api-reference/swagger_prod_extraction.json
+cp openapi/public/extraction_v1.json ~/Projects/bspk/docs/api-reference/extraction_v1.json
 ```
 
 ### 3. Regenerate endpoint MDX files
@@ -51,7 +51,7 @@ rm -rf api-reference/extraction-api/endpoints
 
 # Regenerate
 npx @mintlify/scraping@latest openapi-file api-reference/platform_v1.json -o api-reference/platform-api/endpoints
-npx @mintlify/scraping@latest openapi-file api-reference/swagger_prod_extraction.json -o api-reference/extraction-api/endpoints
+npx @mintlify/scraping@latest openapi-file api-reference/extraction_v1.json -o api-reference/extraction-api/endpoints
 ```
 
 ### 4. Update navigation
