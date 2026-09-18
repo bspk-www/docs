@@ -1,0 +1,102 @@
+---
+title: Extracting a delta
+description: Fetch only the records that changed since your last extraction.
+---
+
+Most integrations do not need the whole data set on every run. They need the records that changed since the last run, to reconcile what their webhooks did not deliver.
+
+The `sort` parameter gives you that.
+
+## The `sort` parameter
+
+`sort` selects one column, and that column does two jobs: `from` and `to` filter it, and the result comes back ordered by it.
+
+| `sort` | `from` and `to` filter | Order of the result |
+| --- | --- | --- |
+| `created_at` (default) | the creation time | `created_at` ascending |
+| `updated_at` | the time of the last change | `updated_at` ascending |
+
+A request that does not send `sort` behaves exactly as it did before this parameter existed.
+
+<Info>
+  Two endpoints accept `sort`: **Clients** and **Sales Associates**. Their records change after they are created.
+
+  The other endpoints do not accept it. A message, a note, an email, a call, an appointment, a reminder and a slice keep the values that they were created with, so their `updated_at` repeats their `created_at`. Those endpoints answer `422` when a request sends `sort`, so you always know that a parameter did something.
+</Info>
+
+## The recipe
+
+<Steps>
+  <Step title="Keep a watermark">
+    Store the highest `updated_at` that you processed. On your first run, use a time far enough in the past to cover the period that you need.
+  </Step>
+
+  <Step title="Ask for the changes">
+    Send `sort=updated_at` and `from=<your watermark>`.
+
+    ```console
+    $ curl -H "Authorization: Bearer $API_KEY" \
+        "https://api.bspk.com/api/extraction/v1/clients?sort=updated_at&per_page=1000&from=2026-09-01T00:00:00Z"
+    ```
+
+    Subtract a few minutes from your watermark. A record is stamped when the database writes it, and becomes visible when the transaction commits. A slow transaction can therefore become visible after you read past its time, and the overlap collects it.
+  </Step>
+
+  <Step title="Read the next page with `from`, not with `page`">
+    Take the `updated_at` of the last record that you received, send it as the `from` of your next call, and ask for `page=1` again.
+
+    ```console
+    $ curl -H "Authorization: Bearer $API_KEY" \
+        "https://api.bspk.com/api/extraction/v1/clients?sort=updated_at&per_page=1000&from=2026-09-17T14:39:26.000Z"
+    ```
+
+    Repeat until a call returns fewer records than your `per_page`.
+  </Step>
+
+  <Step title="Save each record with an upsert">
+    Upsert on `bspk_id`. Never insert without a check.
+
+    The same record can arrive more than once. The `from` bound includes the given time, so every call after the first returns the record that you used as the cursor. A record that changes twice during your pull also arrives twice, and that is correct: it did change again.
+  </Step>
+
+  <Step title="Move the watermark last">
+    Move your watermark to the highest `updated_at` that you received, and only after the whole pull succeeds. If a call fails, run the pull again from the old watermark.
+  </Step>
+</Steps>
+
+## Why `page=2` is not safe with `sort=updated_at`
+
+`updated_at` changes while you read the pages, and `page` counts positions.
+
+When a record that you already read changes, it moves to the end of the order. Every later record moves one position to the left, and the record that was first on your next page moves off it. That record is never returned, and nothing tells you that it is missing.
+
+This is what that looks like with 6 records and `per_page=2`, when the first record changes again while page 2 is read:
+
+```
+page 1  ->  [ C1, C2 ]     C1 changes again here
+page 2  ->  [ C4, C5 ]
+page 3  ->  [ C6, C1 ]
+
+received:  C1 C2 C4 C5 C6 C1
+missing:   C3
+```
+
+A `to` bound does not fix this. The record leaves the window instead of moving to the end, and the records after it still shift by one.
+
+Sending the last `updated_at` as your next `from` names a position by value instead of by offset, so a record that moves cannot hide another record from you.
+
+<Info>
+  The default `sort=created_at` does not have this problem. A creation time never changes, so `page=2`, `page=3` and so on are stable. Use `page` for a full export, and use `from` for a delta.
+</Info>
+
+## Sizing the job
+
+`x-total-count` tells you how many records match your filter. When the first call reports a count at or below your `per_page`, that one call is the whole delta.
+
+`per_page` accepts up to `1000`, and a large page is far more efficient than a small one. Fetching the same data in pages of `1000` costs a fraction of the requests, and a fraction of the time, that pages of `100` cost.
+
+## What moves `updated_at`
+
+On a client, `updated_at` moves for more reasons than an edit to the profile. An appointment, an email, a call, a wishlist, a store visit, a special order and a rating all touch the record.
+
+Your delta therefore includes clients whose own fields did not change. Plan for a pull that returns more records than you expect, and make your upsert cheap.

@@ -53,3 +53,11 @@ Since by default, all paginated queries start at page `1`, `rel="last"` provides
 <Info>
   **Important**: Always rely on these link relations provided to you. Don't try to guess or construct your own URL.
 </Info>
+
+## Paginating a delta
+
+The link relations above count positions, so they are safe when the order cannot change. That is the case by default, because the Extraction API orders by the creation time and a creation time never changes.
+
+It is not the case when you send `sort=updated_at` on the Clients or the Sales Associates endpoint. There, a record that changes while you read the pages moves to the end of the order, and a record that you have not read yet can move off the page that you read next.
+
+For those requests, page with `from` instead: send the `updated_at` of the last record that you received as the `from` of your next call, and ask for `page=1` again. See [Extracting a delta](/api-reference/extraction-api/extracting-a-delta).
