@@ -51,5 +51,15 @@ Link: <https://api.bspk.com/api/extraction/v1/messages?client_ids=CLI1&page=2>; 
 Since by default, all paginated queries start at page `1`, `rel="last"` provides more information stating that the last page of results is on page `30`. Thus, we have `29` more pages of information about messages from client `CLI1` that we can consume.
 
 <Info>
-  **Important**: Always rely on these link relations provided to you. Don't try to guess or construct your own URL.
+  **Important**: When you paginate with `page`, always rely on these link relations provided to you. Don't try to guess or construct your own URL.
+
+  Requests that send `sort=updated_at` are the exception. See [Paginating a delta](#paginating-a-delta) below.
 </Info>
+
+## Paginating a delta
+
+`sort=updated_at` is accepted by the Clients and the Sales Associates endpoints, and it is the one case where you do not follow `rel="next"`.
+
+Send the `updated_at` of the last record that you received as the `from` of your next call, and ask for `page=1` again.
+
+See [Extracting a delta](/api-reference/extraction-api/extracting-a-delta).

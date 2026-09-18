@@ -164,6 +164,7 @@
                 "group": "Extraction API",
                 "pages": [
                   "api-reference/extraction-api/introduction",
+                  "api-reference/extraction-api/extracting-a-delta",
                   {
                     "group": "Appointments",
                     "pages": [
@@ -186,12 +187,6 @@
                     "group": "Emails",
                     "pages": [
                       "api-reference/extraction-api/endpoints/emails/list-emails"
-                    ]
-                  },
-                  {
-                    "group": "Ideabook",
-                    "pages": [
-                      "api-reference/extraction-api/endpoints/ideabook/get-clients-ideabook-actions-likes-dislikes-wishlists"
                     ]
                   },
                   {
