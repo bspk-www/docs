@@ -134,5 +134,5 @@ Rows of the same sale can name different `sales_associate_ref` values, and rows 
 A row with no `sales_associate_ref`, or one that matches no sales associate, is credited to the associate on the sale's first row — or, when that one doesn't match either, to the associate the sale is attributed to.
 
 <Info>
-This applies to new accounts, and to existing accounts where BSPK has turned it on. Otherwise the whole sale is credited to the associate on its first row, and rows that differ only in `sales_associate_ref` are added together. Ask your BSPK contact to turn it on for an existing account; sales imported before keep their credit until they are sent again.
+This applies to accounts created on or after October 7, 2026, and to earlier accounts where BSPK has turned it on. On other accounts, the whole sale is credited to the associate on its first row, and rows that differ only in `sales_associate_ref` are added together. Ask your BSPK contact to turn it on for an earlier account; sales imported before it was turned on keep their credit until they are sent again.
 </Info>
