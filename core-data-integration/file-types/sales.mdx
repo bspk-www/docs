@@ -106,7 +106,7 @@ title: Sales
       <td>Alphanumeric</td>
       <td>1-255</td>
       <td>No</td>
-      <td>Sales associate who did the sale</td>
+      <td>Sales associate who sold this line. Rows of one sale can name different associates — see [Several associates on one sale](#several-associates-on-one-sale)</td>
       <td>SALES_ASSOCIATE-1</td>
     </tr>
   </tbody>
@@ -120,3 +120,19 @@ It is essential to communicate the sale price based on the unit price of each in
 Quantity: 2
 Price: 20.0
 ```
+
+### Rows and lines
+
+Each row is one line of a sale. The rows that share a `sale_ref` make up the sale, and its shopper, store, date and currency come from its first row. Sending a `sale_ref` again replaces its lines.
+
+Rows with the same `product_ref`, `sku` and `price`, whose quantities have the same sign, are added together into one line. Two rows for the same $20 belt, each with quantity 1, become one line with quantity 2 — the same as sending a single row with quantity 2. Rows that differ in `sku` or `price`, or in the sign of `quantity` (in an exchange, a return beside the re-purchase), stay separate lines.
+
+### Several associates on one sale
+
+Rows of the same sale can name different `sales_associate_ref` values, and rows naming different associates are never added together. Each associate is credited with the revenue and units of the lines they sold, and the sale counts toward each associate who sold something on it. On an exchange, the returned lines reduce each seller's credit in proportion to their share, and an associate who appears only on returned lines isn't credited. The sale itself is attributed to the associate with the largest share; on a tie, to the one whose row comes first.
+
+A row with no `sales_associate_ref`, or one that matches no sales associate, is credited to the associate on the sale's first row — or, when that one doesn't match either, to the associate the sale is attributed to.
+
+<Info>
+This applies to new accounts, and to existing accounts where BSPK has turned it on. Otherwise the whole sale is credited to the associate on its first row, and rows that differ only in `sales_associate_ref` are added together. Ask your BSPK contact to turn it on for an existing account; sales imported before keep their credit until they are sent again.
+</Info>
